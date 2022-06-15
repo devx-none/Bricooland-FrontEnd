@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  li {
+    @apply p-4
+  }
+
+  button {
+    @apply text-white border bg-sky-500 border-sky-500
+    hover:bg-transparent hover:text-sky-500 rounded-md
+  }
+  .button-primary {
+    @apply bg-sky-500 border-sky-500 text-white
+  }
+}

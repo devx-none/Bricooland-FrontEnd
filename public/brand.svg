@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="174" height="177" viewBox="0 0 174 177">
+  <defs>
+    <filter id="Ellipse_1">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#0ea5e9" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g data-type="innerShadowGroup">
+    <ellipse id="Ellipse_1-2" data-name="Ellipse 1" cx="87" cy="88.5" rx="87" ry="88.5" fill="#0ea5e9"/>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Ellipse_1)">
+      <ellipse id="Ellipse_1-3" data-name="Ellipse 1" cx="87" cy="88.5" rx="87" ry="88.5" fill="#fff"/>
+    </g>
+  </g>
+  <text id="B" transform="translate(48 130)" fill="#fff" font-size="133" font-family="SitkaDisplay-Bold, Sitka Display" font-weight="700"><tspan x="0" y="0">B</tspan></text>
+</svg>
