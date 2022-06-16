@@ -7,6 +7,7 @@ export default function Payment() {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+  
   return (
     <div className="flex flex-col">
       <h1 className="font-semibold text-3xl mb-6">Souhaitez-vous ajouter des photos ? (optionnel)</h1>

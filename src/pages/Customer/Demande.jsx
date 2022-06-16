@@ -3,9 +3,9 @@ import Stepper from "../../components/Stepper";
 import StepperControl from "../../components/StepperControl";
 import { UseContextProvider } from "../../contexts/StepperContext";
 
-import Account from "../../components/steps/Account";
-import Details from "../../components/steps/Details";
-import Payment from "../../components/steps/Payment";
+import Category from "../../components/steps/Category";
+import Description from "../../components/steps/Description";
+import Picture from "../../components/steps/Picture";
 import Final from "../../components/steps/Final";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -23,11 +23,11 @@ function App() {
   const displayStep = (step) => {
     switch (step) {
       case 1:
-        return <Account />;
+        return <Category />;
       case 2:
-        return <Details />;
+        return <Description />;
       case 3:
-        return <Payment />;
+        return <Picture />;
       case 4:
         return <Final />;
       default:

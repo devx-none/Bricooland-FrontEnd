@@ -1,4 +1,34 @@
+import React, {  } from 'react';
+import { useStepperContext } from "../../contexts/StepperContext";
+
+import api from "../../api/axios";
+
 export default function Final() {
+    const { userData } = useStepperContext();
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = localStorage.getItem("user");
+    console.log(JSON.parse(user));
+
+    const data = {
+      customer: "62a33b46c3cb15a4b2d711bb",
+      city: userData["city"],
+      category: userData["category"],
+      title: userData["objet"],
+      description: userData["description"],
+    };
+    console.log(data);
+    try {
+      const response = await api.post("/api/service", data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+     
+    }
+  };
   return (
     <div className="container md:mt-10">
       <div className="flex flex-col items-center">
@@ -30,7 +60,8 @@ export default function Final() {
           votre demande est été créée .
         </div>
         <a className="mt-10" href="/user/dashboard">
-          <button className="h-10 px-5 text-gray-200 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-white hover:text-cyan-100">
+          <button className="h-10 px-5 text-gray-200 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-white hover:text-cyan-100"
+         onClick={handleSubmit}>
             Close
           </button>
         </a>
