@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 
 const signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -11,13 +13,14 @@ const signup = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [ciy, setCiy] = useState("");
+  const [city, setCity] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState(false);
   const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,38 +32,43 @@ const signup = () => {
       firstName,
       lastName,
       phone,
-      category,
-      ciy,
+      category:subCategory,
+      city,
       email,
       password,
     };
     try {
       const response = await api.post("/api/handyman", data);
-      console.log(response);
+      console.log(response.data);
+      navigate("/login");
     } catch (error) {
       setError(error.response.data);
-      console.log(error);
-    }
-  };
-
-  const categories = async () => {
-    try {
-      const response = await api.get("/api/categories");
-      setCategory(response.data);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+      console.log("error");
     }
   };
 
   useEffect(() => {
+    const categories = async () => {
+      try {
+        const response = await api.get("/api/categories");
+        setCategory(response.data);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     categories();
-  }, [category]);
+  }, []);
+
+  useEffect(() => {
+    setError("");
+  }, [firstName,lastName,email,city,password,subCategory]);
 
   return (
     //signup using tailwindcss
     <div className="bg-grey-lighter min-h-screen flex flex-col py-20  ">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <form >
         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
           <h1 className="mb-8 text-3xl font-semibold text-center text-sky-500">
             S'inscrire
@@ -77,6 +85,7 @@ const signup = () => {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
+          <p> {errors.firstName && "first name is required"}</p>
           <input
             type="text"
             className="block border border-grey-light w-full p-3 rounded mb-4 focus:outline-sky-500 focus:shadow-outline"
@@ -98,8 +107,8 @@ const signup = () => {
               required: "le champ catégorie est obligatoire",
             })}
             error={errors?.category?.message}
-            value={category || ""}
-            onChange={(e) => setCategory(e.target.value)}
+            value={subCategory || ""}
+            onChange={(e) => setSubCategory(e.target.value)}
 
             // value={userData["categorie"] || ""}
           >
@@ -134,8 +143,8 @@ const signup = () => {
               required: "le champ ville est obligatoire",
             })}
             error={errors?.city?.message}
-            value={ciy}
-            onChange={(e) => setCiy(e.target.value)}
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
 
           <input
@@ -194,23 +203,23 @@ const signup = () => {
               Terms of Service
             </a>{" "}
             and
-            <a
-              className="no-underline border-b border-grey-dark text-grey-dark"
-              href="/"
+            <div
+              className="no-underline border-b border-grey-dark text-grey-dark cursor-pointer"
+              onClick={() => navigate("/login")}
             >
               Privacy Policy
-            </a>
+            </div>
           </div>
         </div>
-
+</form>
         <div className="text-grey-dark mt-6">
           Vous avez déjà un compte ??
-          <a
-            className="px-5 underline border-b border-sky-600 text-sky-500 font-bold"
-            href="/login"
+          <div
+            className="px-5 underline border-b border-sky-600 text-sky-500 font-bold cursor-pointer"
+            onClick={() => navigate("/login")}
           >
             Se connecter
-          </a>
+          </div>
           .
         </div>
       </div>

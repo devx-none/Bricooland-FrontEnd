@@ -1,23 +1,23 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
+import { FaBars, FaUser } from "react-icons/fa";
 import { MdMessage } from "react-icons/md";
 import { BiAnalyse, BiSearch } from "react-icons/bi";
 import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
+import {  AiTwotoneFileExclamation } from "react-icons/ai";
 import { BsCartCheck } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 const routes = [
   {
-    path: "/",
-    name: "Dashboard",
-    icon: <FaHome />,
+    path: "/pro/assignment",
+    name: "Missions",
+    icon: <BiAnalyse />,
   },
   {
-    path: "/bricoleur/myoffers",
+    path: "/pro/myoffers",
     name: "Mes missions",
-    icon: <FaUser />,
+    icon: <BsCartCheck />,
   },
   {
     path: "/messages",
@@ -25,9 +25,9 @@ const routes = [
     icon: <MdMessage />,
   },
   {
-    path: "/bricoleur/achievements",
+    path: "/pro/achievements",
     name: "Mes Réalisations",
-    icon: <FaUser />,
+    icon: <AiTwotoneFileExclamation />,
   },
   {
     path: "/file-manager",
@@ -80,7 +80,7 @@ const SideBar = ({ children }) => {
 
   return (
     <>
-      <div className="main-container  pt-20 ">
+      <div className="main-container  pt-20  ">
         <motion.div
           animate={{
             width: isOpen ? "200px" : "45px",
@@ -91,7 +91,7 @@ const SideBar = ({ children }) => {
               damping: 10,
             },
           }}
-          className={`sidebar `}
+          className={`sidebar h-full`}
         >
           <div className="top_section">
             <AnimatePresence>
@@ -103,7 +103,7 @@ const SideBar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-                   BRICOOLAND
+                  WELCOME PRO
                 </motion.h1>
               )}
             </AnimatePresence>

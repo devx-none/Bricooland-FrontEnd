@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
-// import {
-//     CloudUploadIcon,
-//     DatabaseIcon,
-//     PaperAirplaneIcon,
-//     ServerIcon,
-// } from '@heroicons/react/solid'
-
 import bgImg from "../assets/handyman.png";
 import bgImg2 from "../assets/handyman2.png";
 import brandImg from "../assets/brand.svg";
@@ -19,7 +12,8 @@ const Hero = () => {
   const forCustom = () => setActive(!active);
   const [category, setCategory] = useState("");
   const [city, setCity] = useState("");
-
+  const [cat,setCat] = useState("");
+  //list of categories
   useEffect(() => {
     const categories = async () => {
       try {
@@ -33,28 +27,25 @@ const Hero = () => {
     categories();
   }, []);
 
+  const handleChange = (e) => {
+    const {value } = e.target;
+  
+      setCat(value);
+    
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      category,
-      city,
-    };
-    try {
-      const response = await api.get(`/api/handymen/${data.category}/${data.city}`);
-      console.log(response);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+   //send data url to server
+    navigate(`/pro?category=${cat}&city=${city}`)
   }
 
   return (
     <div
       name="home"
-      className="w-full h-screen bg-white flex flex-col justify-between"
+      className=" h-screen bg-white flex flex-col justify-between"
     >
       <div className="grid md:grid-cols-2 max-w-[1240px] m-auto">
-        <div className="flex flex-col justify-center md:items-start w-full px-2 py-20">
+        <div className="flex flex-col justify-center md:items-start  w-full px-2 py-20">
           <img className="max-w-[50px]" src={brandImg} alt="brand" />
           {/* <p className="text-2xl">Prendre soin de votre fait maison facile.</p> */}
           <h1
@@ -64,7 +55,7 @@ const Hero = () => {
           >
             Prendre soin de votre fait maison facile.
           </h1>
-          <div className="flex justify-between md:flex-col sm:flex-col">
+          <div className="xl:flex justify-between md:flex-col sm:flex-col">
             <div className="flex justify-between ">
               <button
                 className={`text-xl font-semibold border-none py-5 ${
@@ -88,9 +79,9 @@ const Hero = () => {
               </button>
             </div>
 
-            <div className="justify-between items-center ">
+            <div className="justify-between items-center  ">
               {!active && (
-                <div className="flex justify-center ">
+                <div className="flex justify-center  ">
                   <div className="flex mb-3  xl:w-25 border border-solid border-gray-300">
                     <select
                       className="form-select appearance-none
@@ -110,6 +101,9 @@ const Hero = () => {
                         m-0
                         focus:text-gray-700 focus:bg-white focus:border-sky-500 focus:outline-none"
                       aria-label="Default select example"
+                      onChange={handleChange}
+                      value={cat}
+                      name="category"
                     >
                       <option selected className="text-gray-300">
                         Quel type de services recherchez-vous ?
@@ -127,14 +121,16 @@ const Hero = () => {
                     <input
                       type="text"
                       placeholder="ville"
-                      maxLength={5}
+                     
                       value={city}
                       className=" border-l  focus:outline-none   px-4 block w-24 appearance-none l"
                       onChange={(e) => setCity(e.target.value)}
-
                     />
                   </div>
-                  <button className="button-primary rounded-none px-8 py-3 mb-3" onClick={handleSubmit}>
+                  <button
+                    className="button-primary rounded-none px-8 py-3 mb-3"
+                    onClick={handleSubmit}
+                  >
                     Search
                   </button>
                 </div>

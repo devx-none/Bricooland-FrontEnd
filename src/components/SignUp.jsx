@@ -1,14 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
 const signup = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +31,20 @@ const signup = () => {
     
     try {
       const response = await api.post("/api/customer", data);
-      console.log(response);
+      console.log(response.data);
+      navigate("/login");
 
     }
     catch (error) {
+      setError(error.response.data);
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    setError("");
+  }, [firstName, lastName, phone, email, password, passwordConfirm]);
+  
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col py-20">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
@@ -48,7 +59,6 @@ const signup = () => {
             placeholder="prénom"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-
           />
           <input
             type="text"
@@ -57,7 +67,6 @@ const signup = () => {
             placeholder="Nom"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-
           />
           <input
             type="text"
@@ -66,7 +75,6 @@ const signup = () => {
             placeholder="mobile"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-
           />
 
           <input
@@ -76,7 +84,6 @@ const signup = () => {
             placeholder="Adresse e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-
           />
 
           <input
@@ -86,7 +93,6 @@ const signup = () => {
             placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-
           />
           <input
             type="password"
@@ -95,14 +101,13 @@ const signup = () => {
             placeholder="Confirmez le mot de passe"
             value={passwordConfirm}
             onChange={(e) => setPasswordConfirm(e.target.value)}
-
           />
+          {error && <p className="text-red-500 text-center">{error}</p>}
 
           <button
             type="submit"
             class="w-full text-center py-3 rounded text-white bg-sky-500 text-white hover:bg-white focus:outline-none my-1"
             onClick={handleSubmit}
-
           >
             Inscription
           </button>
@@ -127,12 +132,12 @@ const signup = () => {
 
         <div className="text-grey-dark mt-6">
           Vous avez déjà un compte?
-          <a
-            className="px-5 underline border-b border-blue text-sky-500 font-bold"
-            href="/login"
+          <div
+            className="px-5 underline border-b border-blue text-sky-500 font-bold cursor-pointer"
+            onClick={() => navigate("/login")}
           >
             Se connecter
-          </a>
+          </div>
           .
         </div>
       </div>

@@ -10,15 +10,20 @@ export default function Final() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = localStorage.getItem("user");
-    console.log(JSON.parse(user));
+    const user = JSON.parse(localStorage.getItem("user"));
+   
+
+    //data objet in localstorage
+
 
     const data = {
-      customer: "62a33b46c3cb15a4b2d711bb",
+      
+      customer: user.customer,
       city: userData["city"],
       category: userData["category"],
       title: userData["objet"],
       description: userData["description"],
+      image: userData["images"]
     };
     console.log(data);
     try {
@@ -59,12 +64,12 @@ export default function Final() {
         <div className="text-lg font-semibold text-gray-500">
           votre demande est été créée .
         </div>
-        <a className="mt-10" href="/user/dashboard">
-          <button className="h-10 px-5 text-gray-200 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-white hover:text-cyan-100"
+        <div className="mt-10" >
+          <button className="h-10 px-5 text-gray-200 bg-gray-900 transition-colors duration-150 border border-gray-700 rounded-lg focus:shadow-outline hover:bg-white hover:text-gray-800"
          onClick={handleSubmit}>
-            Close
+            OK
           </button>
-        </a>
+        </div>
       </div>
     </div>
   );

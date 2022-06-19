@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div name="about" className="w-full my-32">
       <div className="max-w-[1240px] mx-auto">
-        <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
           <img className="max-w-[50px] " src={brandImg} alt="brand" />
 
           <h5 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
